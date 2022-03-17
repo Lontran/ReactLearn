@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello_react</title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+    
+    <div id="test"></div>
+    <script type="text/babel">
+        let VDOM = <h1> Hello React </h1>;
+        ReactDOM.render(VDOM, document.getElementById('test'));
+        console.log(typeof VDOM);
+        console.log(VDOM instanceof Object);
+
+        const TDOM = document.getElementById('test');
+        console.log(typeof TDOM);
+        console.log(TDOM instanceof Object);
+
+        console.log('真实DOM' + TDOM);
+        console.log('虚拟DOM' + VDOM);
+        /*
+        虚拟DOM比较轻， 真实DOM比较得，因为虚拟DOM是React 使用，无需真实DOM上那么多属性
+        虚拟DOM最终要转换成真实DOM呈现
+        */
+    </script>
+
+</body>
+</html>
