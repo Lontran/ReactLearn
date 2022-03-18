@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <p>函数创建React组件</p>
+    <div id="test"></div>
+    <script type="text/babel">
+        //1.定义一个组件（类式）
+        class Demo extends React.Component {
+            render(){
+                console.log(this)
+                return <h1>这是一个类式组件</h1>
+            }
+        }
+        //2.渲染组件到页面
+        ReactDOM.render(<Demo/>, document.getElementById('test'));
+    </script>
+</body>
+</html>
