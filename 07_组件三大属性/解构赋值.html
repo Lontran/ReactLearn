@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let obj = {a:1, b:2, c:3};
+        let arr = [2, 4, 6, 8];
+
+        const {c} = obj;
+        console.log(c);
+        
+        const [ca] = arr;
+        console.log(ca);
+        const [,,,cb] = arr;
+        console.log(cb);
+
+        let obj1 = {a:1, b:2, d:{x:3, y:4}};
+        //正常解构
+        //const {y} = obj1.d;    //const y =obj.c.y;
+        //连续解构赋值
+        const {d:{y}} = obj1;
+        //console.log(d);  //无法取d值
+        console.log(y);
+        //连续解构赋值+重命名  
+        const{d:{y:value}} = obj1;
+        console.log(value);
+    </script>
+</body>
+</html>

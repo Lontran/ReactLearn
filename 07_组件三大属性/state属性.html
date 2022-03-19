@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>state基本使用</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <p>函数创建React组件</p>
+    <div id="test"></div>
+    <script type="text/babel">
+        //1.定义一个组件（类式）
+        class Weather extends React.Component {
+            // constructor(props){
+            //     super(props);
+            //     this.state = {isHot:false}; //初始化状态
+            //     //给实例自身增加一个同名的方法， 这个方法是根据原型上的方法用bind生成的，它的this没有问题
+            //     this.setHot = this.setHot.bind(this);
+            // }
+            state = {isHot: true};
+            render(){
+                console.log(this)
+                const {isHot} = this.state;
+                // return <h1 id="hh">今天天气很{isHot?'炎热':'凉爽'}</h1>
+                // return <h1 onClick={show}>今天天气很{isHot?'炎热':'凉爽'}</h1>
+                return <h1 onClick={this.setHot}>今天天气很{isHot?'炎热':'凉爽'}</h1>
+            }
+            //setHot函数是放在哪里的？----Weather的原型对象上的，供实例使用
+            //setHot函数中的this是谁?----如果setHot是通过Weather实列调用的，那么this就是Weather的实列对象
+            // setHot(){
+            //     console.log(this);
+            //     //严重注意:state不能直接修改，要用一个API setState去修改
+            //     //this.state.isHot = !this.state.isHot;
+            //     const isHot = this.state.isHot;
+            //     this.setState({isHot:!isHot})  //取反赋值
+            // }
+            
+            //组件中程序员定义的事件回调，必须写成赋值语句+箭头函数，避免了this为undefined的问题
+            setHot = () =>{
+                const isHot = this.state.isHot;
+                this.setState({isHot:!isHot});
+            }
+        }
+        //2.渲染组件到页面
+        ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+        const hh = document.getElementById('hh');
+        // hh.onclick = () =>{
+        //     alert("h1");
+        // };
+
+        // hh.addEventListener('click', ()=>alert("h1"));
+        function show(){
+            alert("h1");
+        }
+    </script>
+</body>
+</html>
