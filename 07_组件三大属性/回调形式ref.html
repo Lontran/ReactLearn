@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Props属性</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <script type="text/babel">
+        class Show extends React.Component {
+            render() {
+                return (
+                  <div>
+                    <input type="text" ref={(c)=>this.input1 = c}/>&nbsp;
+                    <button onClick={this.show}>点我提示左侧数据</button>&nbsp;
+                    <input type="text" ref={c=>this.input2 =c} onBlur={this.show2} placeholder="失去焦点提示"/>
+                  </div>
+                );
+            }
+            show = ()=>{
+              const {input1} = this;
+              alert(input1.value);
+            }
+
+            show2 = ()=>{
+              const {input2} = this;
+              alert(input2.value);
+            }
+        }
+        ReactDOM.render(<Show name="老王" sex="男" age = "48"/>, document.getElementById('test'));
+       
+    </script>
+</body>
+</html>
