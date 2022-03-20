@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>受控组件收集表单数据</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/babel">
+      /*
+        受控组件：表单中输入类DOM，随着用户的输入，将值收集到 state中，那么就称为受控组件
+      */
+       class Login extends React.Component {
+         state={
+           username:'',
+           password:''
+         }
+
+         render() {
+            return (
+              <form onSubmit={this.handleLogin}>
+                <input type="text" placeholder="用户名" onChange={this.saveUserName}/>
+                <input type="password" placeholder="密码" onChange={this.savePassword}/>
+                <button>登录</button>
+              </form>
+            )
+         }
+
+         saveUserName=(event)=>{
+            this.setState({username: event.target.value})
+         }
+         savePassword=(event)=>{
+          this.setState({password: event.target.value})
+         }
+         handleLogin=(event)=>{
+           event.preventDefault();
+           const {username, password} = this.state;
+           alert(`用户名是${username},密码是${password}`);
+         }
+       }
+
+       ReactDOM.render(<Login/>, document.getElementById('test'));
+    </script>
+</body>
+</html>
