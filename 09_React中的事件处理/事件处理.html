@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      .container{
+        width: 400px;
+        height: 400px;
+        background-color: orange;
+      }
+      .child {
+        width: 200px;
+        height: 200px;
+        background-color: green;
+      }
+    </style>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/babel">
+      /*
+       1.通过onXxx属性指定事件处理函数（注意大小写）
+          1).React使用的是自定义（合成）事件，而不是使用原生DOM事件
+          2).React中的事件是通过事件委托方式处理的（委找给组件最外层的元素）
+       2.通过event.target得到发生事件DOM元素对象
+      */
+       class Demo extends React.Component {
+        
+         render() {
+           return (
+             <div className="container" onClick={this.test}>
+               <button onClick={this.show1}>按钮1</button>
+               <button onClick={this.show2}>按钮2</button>
+               <div onClick={this.show3} className="child">abcd</div>
+             </div>
+           )
+         }
+         show1=(event)=>{
+           //接到的event是React自定义的事件对象，它拥有着和原生event同样的属性
+           console.log("show1", event);
+           //停止事件冒泡
+           event.stopPropagation();
+         }
+
+         show2=(event)=>{
+           console.log(event.target.innerText);
+         }
+
+         show3=()=>{
+           console.log("show3");
+         }
+
+         test=()=>{
+           console.log('Test');
+         }
+       }
+
+       ReactDOM.render(<Demo/>, document.getElementById('test'));
+    </script>
+</body>
+</html>
