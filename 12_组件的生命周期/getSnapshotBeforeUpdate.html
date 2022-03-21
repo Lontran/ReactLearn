@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>getSnapshotBeforeUpdate</title>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <style>
+    .list{
+      width: 200px;
+      height: 150px;
+      background-color: orange;
+      overflow: auto;
+    }
+    .item{
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class News extends React.Component{
+      state = {newsArr:[]}
+      
+      render() {
+        return (
+          <div className="list" ref="list">
+            {
+              this.state.newsArr.map((news, index)=>{
+                return <div className="item" key={index}>{news}</div>  
+              })
+            }
+          </div>
+        )
+      }
+      //getSnapshotBeforeUpdate方法必须与componentDidUpdate配合使用 
+      getSnapshotBeforeUpdate() {
+        console.log('getSnapshotBeforeUpdate');
+        //返回值将传递给componentDidUpdate函数作为参数
+        return this.refs.list.scrollHeight; 
+      }
+      //prevProps之前的props
+      //prevState更新之前的state
+      //snapshotValue getSnapshotBeforUpdate（）返回的快照值
+      componentDidUpdate(prevProps, prevState, snapshotValue) {
+        console.log('componentDidUpdate', prevProps, prevState, snapshotValue);
+        this.refs.list.scrollTop += this.refs.list.scrollHeight - snapshotValue;
+      }
+
+      componentDidMount(){
+        setInterval(()=>{
+          const {newsArr} = this.state;
+          const n = '新闻' + (newsArr.length + 1);
+          //newArr.unshift(n);
+          this.setState({newsArr:[n,...newsArr]});
+        }, 1000)
+      }
+      // componentwillUnMount(){
+      //    clearInterval(this.timer1);
+      // }
+    }
+   
+    ReactDOM.render(<News/>, document.getElementById('test'));
+  </script>
+</body>
+</html>
